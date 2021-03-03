@@ -3,7 +3,7 @@ version: @version@
 main: one.tika.sphericalmines.SphericalMines
 api-version: 1.16
 authors: [ Tika ]
-description: "A mine system; but instead of rectangles, it's spheres."
+description: "A mine system; but instead of cuboids, it's spheres."
 website: tika.one
 depends: [ FastAsyncWorldEdit ]
 commands:
