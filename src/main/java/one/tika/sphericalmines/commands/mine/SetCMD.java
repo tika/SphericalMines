@@ -165,7 +165,7 @@ public class SetCMD extends SubcommandBase {
                 double totalChance = 0;
 
                 for (int i = 3; i < args.length; i++) {
-                    String[] mat = args[i].split(",");
+                    String[] mat = args[i].split(":");
 
                     Material material = Material.getMaterial(mat[0]);
 
