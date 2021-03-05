@@ -15,6 +15,10 @@ public class SLocation {
         this.z = z;
     }
 
+    public static SLocation fromBukkitLocation(Location location) {
+        return new SLocation(location.getWorld().getName(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
+    }
+
     public Location toBukkitLocation() {
         return new Location(Bukkit.getWorld(world), x, y, z);
     }

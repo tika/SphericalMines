@@ -1,12 +1,14 @@
 package one.tika.sphericalmines.commands;
 
+import one.tika.sphericalmines.commands.mine.CreateCMD;
 import one.tika.sphericalmines.commands.mine.ResetCMD;
+import one.tika.sphericalmines.commands.mine.SetCMD;
 import one.tika.tide.command.CommandBase;
 import one.tika.tide.command.SubcommandBase;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 public class MineCMD extends CommandBase {
@@ -17,7 +19,7 @@ public class MineCMD extends CommandBase {
 
     @Override
     public List<SubcommandBase> getSubcommands() {
-        return Collections.singletonList(new ResetCMD());
+        return Arrays.asList(new ResetCMD(), new CreateCMD(), new SetCMD());
     }
 
     @Override

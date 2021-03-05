@@ -21,15 +21,13 @@ import java.util.stream.Collectors;
 public class Mine {
 
     private String name;
-    private UUID id;
     private double radius;
     private SLocation center;
     private final Map<Material, Double> mineMaterials;
     private SLocation mineSpawn;
 
-    public Mine(String name, UUID id, double radius, SLocation center, Map<Material, Double> mineMaterials, SLocation mineSpawn) {
+    public Mine(String name, double radius, SLocation center, Map<Material, Double> mineMaterials, SLocation mineSpawn) {
         this.name = name;
-        this.id = id;
         this.radius = radius;
         this.center = center;
         this.mineMaterials = mineMaterials;
@@ -43,15 +41,6 @@ public class Mine {
 
     public String getName() {
         return name;
-    }
-
-    // id
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     // center
