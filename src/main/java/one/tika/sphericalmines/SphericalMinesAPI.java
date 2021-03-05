@@ -1,38 +1,49 @@
 package one.tika.sphericalmines;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 
-import java.util.UUID;
+import java.util.Map;
+import java.util.Optional;
 
-// This will just contain methods for getting mine data
 public class SphericalMinesAPI {
 
     private SphericalMinesAPI() {}
 
     /**
-     * TODO
-     * Checks if a location is within another mine
+     * Checks if a location is within a mine
      * @param location The location to be checked
+     * @return Whether the location is within a mine
      */
     public static boolean inMine(Location location) {
-        return false;
+        return getMineAt(location).isPresent();
     }
 
     /**
-     * TODO
-     * Returns a mine with a specified name
+     * Gets a mine from a name
      * @param name The name of the mine wanted
+     * @return The mine specified
      */
-    public static Mine getMine(String name) {
-        return null;
+    public static Optional<Mine> getMine(String name) {
+        return SphericalMines.getInstance().getMineHandler().get(name);
     }
 
     /**
-     * TODO
-     * Returns a mine with a specified id
-     * @param mineId The id of the mine wanted
+     * Gets a mine at a specified location
+     * @param location A location to be queried
+     * @return The mine at that location
      */
-    public static Mine getMine(UUID mineId) {
-        return null;
+    public static Optional<Mine> getMineAt(Location location) {
+        return SphericalMines.getInstance().getMineHandler().getAll().stream().filter(mine -> mine.inMine(location)).findFirst();
+    }
+
+    /**
+     * Creates a mine and inserts it into data
+     * @return The new mine created
+     */
+    public static Mine createMine(String name, double radius, SLocation center, Map<Material, Double> mineMaterials, SLocation mineSpawn) {
+        Mine mine = new Mine(name, radius, center, mineMaterials, mineSpawn);
+        SphericalMines.getInstance().getMineHandler().add(mine);
+        return mine;
     }
 }
