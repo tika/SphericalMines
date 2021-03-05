@@ -46,8 +46,8 @@ public class CreateCMD extends SubcommandBase {
                 return;
             }
 
-            if (SphericalMines.getInstance().getMineHandler().getAll().stream().anyMatch(mine -> mine.getName().equals(_name))) {
-                Hue.message(player, msg.getMessageValue("create-setup.name-taken"));
+            if (SphericalMines.getInstance().getMineHandler().get(_name).isPresent()) {
+                Hue.message(player, msg.getMessageValue("name-taken"));
                 return;
             }
 
@@ -59,7 +59,7 @@ public class CreateCMD extends SubcommandBase {
                 try {
                     radius = Double.parseDouble(_radius.trim());
                 } catch (NumberFormatException e) {
-                    Hue.message(player, msg.getMessageValue("create-setup.invalid-radius").replace("%radius%", _radius));
+                    Hue.message(player, msg.getMessageValue("invalid-radius").replace("%radius%", _radius));
                     return;
                 }
 
@@ -70,7 +70,6 @@ public class CreateCMD extends SubcommandBase {
                 );
 
                 SphericalMines.getInstance().getMineHandler().add(mine);
-                mine.reset();
 
                 Hue.message(player, msg.getMessageValue("create-setup.success").replace("%mine%", mine.getName()));
             });

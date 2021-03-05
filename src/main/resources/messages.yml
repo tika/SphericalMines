@@ -1,6 +1,8 @@
 ######### General Messages #########
 arg-not-provided: "&cArgument: %arg% not found!"
 invalid-mine: "&cCould not find a mine called: %mine%"
+invalid-radius: "&c%radius% is not a number!"
+name-taken: "&cThere is already a mine with this name!"
 
 create-setup:
   intro: "&bThis will run you through a mine setup."
@@ -10,16 +12,20 @@ create-setup:
 
   ######### Errors #########
   invalid-name: "&cThe name %name% is not allowed. [a-Z, 1-9]"
-  name-taken: "&cThere is already a mine with this name!"
-  invalid-radius: "&c%radius% is not a number!"
 
 reset:
   success: "&aSuccessfully reset %mine%"
 
 set:
   updated-setting: "&aUpdated %setting% to %value%"
+  updated-coords: "&aUpdated %setting% to %world% %xyz%"
+
   ######### Errors #########
   invalid-setting: "&c%setting% is an invalid setting!"
+  only-player: "&cYou must be a player to use this command!"
+  invalid-coords: "&cYou have entered invalid coordinates"
+  invalid-world: "&cYou have entered an invalid world"
+  coords-not-provided: "&cYou have not entered enough coordinates!"
 
 delete:
   success: "&aYou successfully deleted the mine: %mine%"
