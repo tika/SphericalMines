@@ -128,6 +128,10 @@ public class Mine {
         return Bukkit.getOnlinePlayers().stream().filter(player -> inMine(player.getLocation())).collect(Collectors.toList());
     }
 
+    public void delete() {
+        SphericalMines.getInstance().getMineHandler().remove(getName());
+    }
+
     public Region getRegion() {
         return new SphereRegionFactory().createCenteredAt(center.toBlockVector3(), radius);
     }

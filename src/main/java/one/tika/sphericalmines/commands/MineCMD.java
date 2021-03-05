@@ -1,6 +1,7 @@
 package one.tika.sphericalmines.commands;
 
 import one.tika.sphericalmines.commands.mine.CreateCMD;
+import one.tika.sphericalmines.commands.mine.DeleteCMD;
 import one.tika.sphericalmines.commands.mine.ResetCMD;
 import one.tika.sphericalmines.commands.mine.SetCMD;
 import one.tika.tide.command.CommandBase;
@@ -19,7 +20,7 @@ public class MineCMD extends CommandBase {
 
     @Override
     public List<SubcommandBase> getSubcommands() {
-        return Arrays.asList(new ResetCMD(), new CreateCMD(), new SetCMD());
+        return Arrays.asList(new ResetCMD(), new CreateCMD(), new SetCMD(), new DeleteCMD());
     }
 
     @Override

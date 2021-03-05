@@ -1,0 +1,25 @@
+######### General Messages #########
+arg-not-provided: "&cArgument: %arg% not found!"
+invalid-mine: "&cCould not find a mine called: %mine%"
+
+create-setup:
+  intro: "&bThis will run you through a mine setup."
+  name: "&aEnter a mine name"
+  radius: "&aEnter a radius"
+  success: "&aCompleted the setup for %mine%"
+
+  ######### Errors #########
+  invalid-name: "&cThe name %name% is not allowed. [a-Z, 1-9]"
+  name-taken: "&cThere is already a mine with this name!"
+  invalid-radius: "&c%radius% is not a number!"
+
+reset:
+  success: "&aSuccessfully reset %mine%"
+
+set:
+  updated-setting: "&aUpdated %setting% to %value%"
+  ######### Errors #########
+  invalid-setting: "&c%setting% is an invalid setting!"
+
+delete:
+  success: "&aYou successfully deleted the mine: %mine%"

@@ -2,10 +2,12 @@ package one.tika.sphericalmines;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import one.tika.tide.utils.Hue;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class MineHandler {
@@ -32,6 +34,15 @@ public class MineHandler {
 
     public void remove(final String name) {
         data.removeIf(mine -> mine.getName().equals(name));
+
+        // Find the file
+        Optional<File> file = Arrays.stream(dataFolder.listFiles()).filter(f -> f.getName().equals(name + ".json")).findFirst();
+
+        if (file.isPresent()) {
+            if (!file.get().delete()) {
+                Hue.get(SphericalMines.getInstance()).print("&cCould not delete mine file!");
+            }
+        }
     }
 
     public List<Mine> getAll() {

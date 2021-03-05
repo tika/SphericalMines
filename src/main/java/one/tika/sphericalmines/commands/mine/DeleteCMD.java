@@ -9,24 +9,23 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-public class ResetCMD extends SubcommandBase {
+public class DeleteCMD extends SubcommandBase {
     private final Config msg = SphericalMines.getInstance().getMessages();
 
     @Override
     public String getName() {
-        return "reset";
+        return "delete";
     }
 
     @Override
     public String[] getAliases() {
-        return new String[0];
+        return new String[]{ "remove" };
     }
 
     @Override
     public void perform(CommandSender sender, String[] args) {
-        if (!Perm.RESET.handle(sender)) return;
+        if (!Perm.DELETE.handle(sender)) return;
 
         if (args.length < 2) {
             sender.sendMessage(msg.getMessageValue("arg-not-provided").replace("%arg%", "mine"));
@@ -40,17 +39,12 @@ public class ResetCMD extends SubcommandBase {
             return;
         }
 
-        mine.get().reset();
-
-        sender.sendMessage(msg.getMessageValue("reset.success").replace("%mine%", mine.get().getName()));
+        mine.get().delete();
+        sender.sendMessage(msg.getMessageValue("delete.success").replace("%mine%", args[1]));
     }
 
     @Override
-    public List<String> getParameters(CommandSender commandSender, String[] args) {
-        if (args.length == 1) {
-            return SphericalMines.getInstance().getMineHandler().getAll().stream().map(Mine::getName).collect(Collectors.toList());
-        }
-
+    public List<String> getParameters(CommandSender commandSender, String[] strings) {
         return null;
     }
 }

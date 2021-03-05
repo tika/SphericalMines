@@ -8,7 +8,8 @@ public enum Perm {
 
     RESET,
     SET,
-    CREATE;
+    CREATE,
+    DELETE;
 
     private final String prefix = "sphere";
 
