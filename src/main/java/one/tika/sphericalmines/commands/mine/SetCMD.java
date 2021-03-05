@@ -4,13 +4,11 @@ import one.tika.sphericalmines.*;
 import one.tika.tide.command.SubcommandBase;
 import one.tika.tide.data.Config;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.lang.Integer.parseInt;
@@ -66,8 +64,6 @@ public class SetCMD extends SubcommandBase {
 
         Mine mine = _mine.get();
 
-        handler.remove(mine.getName());
-
         switch (setting.toLowerCase()) {
             case "name":
                 if (handler.get(value).isPresent()) {
@@ -75,7 +71,15 @@ public class SetCMD extends SubcommandBase {
                     return;
                 }
 
+                handler.remove(mine.getName());
+
                 mine.setName(value);
+
+                sender.sendMessage(msg.getMessageValue("set.updated-setting")
+                        .replace("%setting%", setting.toLowerCase())
+                        .replace("%value%", value.toLowerCase())
+                );
+
                 break;
             case "radius":
                 double radius;
@@ -87,17 +91,34 @@ public class SetCMD extends SubcommandBase {
                     return;
                 }
 
+                handler.remove(mine.getName());
+
                 mine.setRadius(radius);
+
+                sender.sendMessage(msg.getMessageValue("set.updated-setting")
+                        .replace("%setting%", setting.toLowerCase())
+                        .replace("%value%", value.toLowerCase())
+                );
+
                 break;
             case "center":
-                handler.add(mine);
                 if (value.equals("here")) {
                     if (!(sender instanceof Player)) {
                         sender.sendMessage(msg.getMessageValue("set.only-player"));
                         return;
                     }
 
+                    handler.remove(mine.getName());
+
                     mine.setCenter(SLocation.fromBukkitLocation(((Player) sender).getLocation()));
+
+                    handler.add(mine);
+
+                    sender.sendMessage(msg.getMessageValue("set.updated-setting")
+                            .replace("%setting%", setting.toLowerCase())
+                            .replace("%value%", value.toLowerCase())
+                    );
+
                     break;
                 }
 
@@ -126,6 +147,7 @@ public class SetCMD extends SubcommandBase {
                 }
 
                 handler.remove(mine.getName());
+
                 mine.setCenter(new SLocation(world, x, y, z));
                 sender.sendMessage(msg.getMessageValue("set.updated-coords")
                         .replace("%setting%", setting.toLowerCase())
@@ -136,17 +158,79 @@ public class SetCMD extends SubcommandBase {
                 handler.add(mine);
                 return;
             case "materials":
-                // TODO
-                return;
-            case "spawn":
+                // /mine set <mine> materials stone,15 coal_ore,75
+
+                Map<Material, Double> mineMaterials = new HashMap<>();
+                // an easier way for us to keep track of the total chance ( must be = 100 )
+                double totalChance = 0;
+
+                for (int i = 3; i < args.length; i++) {
+                    String[] mat = args[i].split(",");
+
+                    Material material = Material.getMaterial(mat[0]);
+
+                    if (material == null) {
+                        sender.sendMessage(msg.getMessageValue("set.invalid-material")
+                                .replace("%material%", mat[0]));
+                        return;
+                    }
+
+                    double chance;
+
+                    try {
+                        chance = Double.parseDouble(mat[1]);
+                    } catch (NumberFormatException e) {
+                        sender.sendMessage(msg.getMessageValue("set.invalid-chance")
+                                .replace("%chance%", mat[1]));
+                        return;
+                    }
+
+                    if (totalChance >= 100) {
+                        sender.sendMessage(msg.getMessageValue("set.too-high-total"));
+                        return;
+                    }
+
+                    totalChance += chance;
+
+                    mineMaterials.put(material, chance);
+                }
+
+                if (totalChance < 100) {
+                    sender.sendMessage(msg.getMessageValue("set.too-low-total"));
+                    return;
+                }
+
+                handler.remove(mine.getName());
+
+                // set mine materials
+                mine.setMaterials(mineMaterials);
+
                 handler.add(mine);
+
+                sender.sendMessage(msg.getMessageValue("set.updated-setting")
+                        .replace("%setting%", setting.toLowerCase())
+                        .replace("%value%", value.toLowerCase())
+                );
+
+                break;
+            case "spawn":
                 if (value.equals("here")) {
                     if (!(sender instanceof Player)) {
                         sender.sendMessage(msg.getMessageValue("set.only-player"));
                         return;
                     }
 
+                    handler.remove(mine.getName());
+
                     mine.setCenter(SLocation.fromBukkitLocation(((Player) sender).getLocation()));
+
+                    handler.add(mine);
+
+                    sender.sendMessage(msg.getMessageValue("set.updated-setting")
+                            .replace("%setting%", setting.toLowerCase())
+                            .replace("%value%", value.toLowerCase())
+                    );
+
                     break;
                 }
 
@@ -175,6 +259,7 @@ public class SetCMD extends SubcommandBase {
                 }
 
                 handler.remove(mine.getName());
+
                 mine.setMineSpawn(new SLocation(sWorld, _x, _y, _z));
                 sender.sendMessage(msg.getMessageValue("set.updated-coords")
                         .replace("%setting%", setting.toLowerCase())
@@ -183,14 +268,7 @@ public class SetCMD extends SubcommandBase {
                 );
 
                 handler.add(mine);
-                return;
         }
-
-        sender.sendMessage(msg.getMessageValue("set.updated-setting")
-                .replace("%setting%", setting.toLowerCase())
-                .replace("%value%", value.toLowerCase())
-        );
-        handler.add(mine);
     }
 
     @Override

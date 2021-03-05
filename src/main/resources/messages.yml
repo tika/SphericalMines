@@ -26,6 +26,10 @@ set:
   invalid-coords: "&cYou have entered invalid coordinates"
   invalid-world: "&cYou have entered an invalid world"
   coords-not-provided: "&cYou have not entered enough coordinates!"
+  invalid-material: "&c%material% is an invalid material"
+  invalid-chance: "&c%chance% is an invalid chance!"
+  too-high-total: "&cYou have entered chances that add up to over 100%"
+  too-low-total: "&cYou have entered chances that add up to less than 100%"
 
 delete:
   success: "&aYou successfully deleted the mine: %mine%"

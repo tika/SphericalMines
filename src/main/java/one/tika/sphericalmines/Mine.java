@@ -23,7 +23,7 @@ public class Mine {
     private String name;
     private double radius;
     private SLocation center;
-    private final Map<Material, Double> mineMaterials;
+    private Map<Material, Double> mineMaterials;
     private SLocation mineSpawn;
 
     public Mine(String name, double radius, SLocation center, Map<Material, Double> mineMaterials, SLocation mineSpawn) {
@@ -74,8 +74,12 @@ public class Mine {
         return mineMaterials.get(material);
     }
 
-    public Map<Material, Double> getMineMaterials() {
+    public Map<Material, Double> getMaterials() {
         return mineMaterials;
+    }
+
+    public void setMaterials(Map<Material, Double> mineMaterials) {
+        this.mineMaterials = mineMaterials;
     }
 
     // mineSpawn
