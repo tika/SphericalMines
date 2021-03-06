@@ -26,12 +26,20 @@ public class Mine {
     private Map<Material, Double> mineMaterials;
     private SLocation mineSpawn;
 
+    // Flags
+    private boolean silentReset;
+    private String autoReset; // 60s or 60% or null
+
     public Mine(String name, double radius, SLocation center, Map<Material, Double> mineMaterials, SLocation mineSpawn) {
         this.name = name;
         this.radius = radius;
         this.center = center;
         this.mineMaterials = mineMaterials;
         this.mineSpawn = mineSpawn;
+
+        // Flags
+        this.silentReset = true;
+        this.autoReset = null;
     }
 
     // name
@@ -89,6 +97,23 @@ public class Mine {
 
     public void setMineSpawn(SLocation mineSpawn) {
         this.mineSpawn = mineSpawn;
+    }
+
+    // flags
+    public boolean isSilentReset() {
+        return silentReset;
+    }
+
+    public String getAutoReset() {
+        return autoReset;
+    }
+
+    public void setSilentReset(boolean silentReset) {
+        this.silentReset = silentReset;
+    }
+
+    public void setAutoReset(String autoReset) {
+        this.autoReset = autoReset;
     }
 
     // ########### Utils ###########

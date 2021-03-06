@@ -31,5 +31,12 @@ set:
   too-high-total: "&cYou have entered chances that add up to over 100%"
   too-low-total: "&cYou have entered chances that add up to less than 100%"
 
+flags:
+  success: "&a%flag% was successfully set to %value%"
+
+  ######### Errors #########
+  invalid-flag: "&c%flag% is an invalid flag!"
+  invalid-number: "&c%value% is an invalid number!"
+
 delete:
   success: "&aYou successfully deleted the mine: %mine%"
