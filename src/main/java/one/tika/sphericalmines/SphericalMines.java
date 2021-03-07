@@ -1,9 +1,12 @@
 package one.tika.sphericalmines;
 
 import one.tika.sphericalmines.commands.MineCMD;
+import one.tika.sphericalmines.listeners.BreakListener;
 import one.tika.sphericalmines.listeners.ChatListener;
 import one.tika.tide.TidePlugin;
 import one.tika.tide.data.Config;
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,15 +28,16 @@ public final class SphericalMines extends TidePlugin {
             e.printStackTrace();
         }
 
-        try {
-            mineHandler.loadData();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         prettyPrintDescription("&3");
         registerCommands(new MineCMD());
-        registerEvents(new ChatListener());
+        registerEvents(new ChatListener(), new BreakListener());
+
+        // AutoReset
+        for (Mine mine : mineHandler.getAll()) {
+            if (mine.getAutoReset() == null || mine.getAutoReset().charAt(mine.getAutoReset().length() - 1) != 's') continue;
+            int time = Integer.parseInt(StringUtils.chop(mine.getAutoReset()));
+            Bukkit.getScheduler().runTaskTimer(this, mine::reset, 0, time * 20L);
+        }
     }
 
     @Override

@@ -25,6 +25,7 @@ public class Mine {
     private SLocation center;
     private Map<Material, Double> mineMaterials;
     private SLocation mineSpawn;
+    private transient long blocksMined = 0; // Stored in memory - ALL mines will reset onEnable
 
     // Flags
     private boolean silentReset;
@@ -116,6 +117,19 @@ public class Mine {
         this.autoReset = autoReset;
     }
 
+    // blocksMined
+    public void setBlocksMined(long blocksMined) {
+        this.blocksMined = blocksMined;
+    }
+
+    public void incrementBlocksMined() {
+        this.blocksMined += 1;
+    }
+
+    public long getBlocksMined() {
+        return blocksMined;
+    }
+
     // ########### Utils ###########
     public Material getRandomMaterial(Random random) {
         return CollectionUtil.getWeightedRandom(mineMaterials.entrySet().stream(), random);
@@ -150,6 +164,8 @@ public class Mine {
         long timeTaken = System.currentTimeMillis() - startTime;
 
         getPlayersInMine().forEach(player -> player.teleport(mineSpawn.toBukkitLocation()));
+
+        setBlocksMined(0);
     }
 
     public List<Player> getPlayersInMine() {

@@ -8,6 +8,7 @@ import one.tika.tide.command.SubcommandBase;
 import one.tika.tide.data.Config;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 import java.util.Arrays;
@@ -101,7 +102,17 @@ public class FlagCMD extends SubcommandBase {
                 handler.remove(mine.getName());
 
                 // check if value = "false"
-                mine.setAutoReset(value.equalsIgnoreCase("false") ? null : value);
+                if (value.equalsIgnoreCase("false")) {
+                    mine.setAutoReset(null);
+                } else {
+                    mine.setAutoReset(value);
+
+                    if (value.charAt(value.length() - 1) == 's') {
+                        int time = Integer.parseInt(StringUtils.chop(value));
+                        Bukkit.getScheduler().runTaskTimer(SphericalMines.getInstance(), mine::reset, 0, time * 20L);
+                    }
+                }
+
                 handler.add(mine);
 
                 break;
