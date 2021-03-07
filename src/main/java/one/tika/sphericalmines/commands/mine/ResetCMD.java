@@ -20,6 +20,11 @@ public class ResetCMD extends SubcommandBase {
     }
 
     @Override
+    public String getDescription() {
+        return "Resets a mine";
+    }
+
+    @Override
     public String[] getAliases() {
         return new String[0];
     }

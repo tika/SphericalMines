@@ -19,6 +19,11 @@ public class DeleteCMD extends SubcommandBase {
     }
 
     @Override
+    public String getDescription() {
+        return "Deletes a mine";
+    }
+
+    @Override
     public String[] getAliases() {
         return new String[]{ "remove" };
     }

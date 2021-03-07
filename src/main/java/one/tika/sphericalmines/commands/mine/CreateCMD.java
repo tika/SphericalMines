@@ -25,6 +25,11 @@ public class CreateCMD extends SubcommandBase {
     }
 
     @Override
+    public String getDescription() {
+        return "Creates a mine";
+    }
+
+    @Override
     public String[] getAliases() {
         return new String[0];
     }

@@ -24,6 +24,11 @@ public class SetCMD extends SubcommandBase {
     }
 
     @Override
+    public String getDescription() {
+        return "Edits a property of a mine";
+    }
+
+    @Override
     public String[] getAliases() {
         return new String[0];
     }

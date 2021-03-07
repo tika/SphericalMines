@@ -27,6 +27,11 @@ public class FlagCMD extends SubcommandBase {
     }
 
     @Override
+    public String getDescription() {
+        return "Sets a flag's value to a mine";
+    }
+
+    @Override
     public String[] getAliases() {
         return new String[0];
     }
